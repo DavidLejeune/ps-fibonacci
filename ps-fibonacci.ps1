@@ -53,11 +53,11 @@ $Host.PrivateData.ProgressBackgroundColor = $bckgrnd
 
         Clear-Host
         $dt = Get-Date
-        $user_name=$env:UserName
-        $user_domain=$env:UserDomain
-        $computer_name=$env:ComputerName
-        $os = Get-WmiObject -Class Win32_OperatingSystem | ForEach-Object -MemberName Caption;
-        $cool_info= "[DOMAIN:$user_domain]   [COMPUTER NAME:$computer_name]   [USER:$user_name]";
+
+        ##########
+        # Moved the variables to script variables 
+        #########
+
         write_reverse_banner_darkblue "$dt";
         #write_reverse_banner_red "WinServer CLI";
         write_reverse_banner_red "$os";
@@ -257,7 +257,12 @@ $animation_msg="";
 $Menu="FIBONACCI SEQUENCE"
 
 
-
+# Show Header variables to reduce flickering
+$user_name=$env:UserName
+$user_domain=$env:UserDomain
+$computer_name=$env:ComputerName
+$os = Get-WmiObject -Class Win32_OperatingSystem | ForEach-Object -MemberName Caption;
+$cool_info= "[DOMAIN:$user_domain]   [COMPUTER NAME:$computer_name]   [USER:$user_name]";
 
 
 
@@ -271,26 +276,28 @@ $Menu="FIBONACCI SEQUENCE"
 function get-fibonaccisequence ($n) {
     $resultString = "";
 
-
     $firstValue = 0;
     $secondValue = 1;
     $resultString = " 0 ," + $secondValue
-
-
-    For ($i=0; $i -le 10; $i++) 
-    {
     
+    $calculations = 0;
+    while($calculations -ne $n)
+    {
         show_header;
-        Write-Host " Adding :  $firstValue + $secondValue"
+        show_fibonacci_description;
+        $calculations = $calculations + 1;
+        Write-Host " Calculation :  $calculations / $n" -ForegroundColor Red;
+        Write-Host " Adding      :  $firstValue + $secondValue" -ForegroundColor DarkGreen;
         Write-Host " "
         # The actual calculation
         $fibResult = $firstValue + $secondValue;
         $firstValue = $secondValue;
         $secondValue = $fibResult;
         $resultString = $resultString + " ," + $fibResult;  
-        Write-Host " ## Fibonacci Sequence ##" -ForegroundColor Gray
-        Write-Host $resultString -ForegroundColor Blue
-        Start-Sleep 1
+        write_banner_info " ## Fibonacci Sequence ##" 
+        Write-Host "";
+        Write-Host $resultString -ForegroundColor Magenta
+        Start-Sleep 1.5
     }
 
 }
@@ -314,6 +321,8 @@ function request-number_of_calculations()
         } 
         else 
         {
+            Write-Host "You have request $number_of_calculations calculation(s)." -ForegroundColor Yellow
+            Start-Sleep 2;
             get-fibonaccisequence ($number_of_calculations)
         }
     }
