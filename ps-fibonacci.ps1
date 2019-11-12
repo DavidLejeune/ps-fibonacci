@@ -5,10 +5,10 @@ function show_description(){
     #feeding the narcistic beast
     Write-Host "# Description" -ForegroundColor white
     Write-Host "# -----------" -ForegroundColor white
-    Write-Host "#  <WRITE TITLE HERE> " -ForegroundColor yellow
+    Write-Host "#  Fibonacci Sequence " -ForegroundColor yellow
     Write-Host ""
     Write-Host "# Author : David Lejeune" -ForegroundColor magenta
-    Write-Host "# Created : <DATE>" -ForegroundColor magenta
+    Write-Host "# Created : 12-11-2019" -ForegroundColor magenta
     Write-Host ""
     standard_options;
 
@@ -249,12 +249,12 @@ $Host.PrivateData.ProgressBackgroundColor = $bckgrnd
 #------------------------------------------------------------------------------
 
 $CurrentPath = (Get-Item -Path ".\").FullName;
-$ParentPath = $CurrentPath.Replace("\dale-terminal", "");
+$ParentPath = $CurrentPath.Replace("\ps-fibonacci", "");
 
 $animation_msg="";
 
 # Standard menu
-$Menu="<MAIN PURPOSE OF SCRIPT>"
+$Menu="FIBONACCI SEQUENCE"
 
 
 
@@ -269,7 +269,17 @@ $Menu="<MAIN PURPOSE OF SCRIPT>"
 # Script 
 #------------------------------------------------------------------------------
 
+# Intro
 show_header;
-
 $animation_msg="LOADING";
 ProcessingAnimation { Start-Sleep 2 }
+
+
+
+
+
+
+
+
+pause;
+
