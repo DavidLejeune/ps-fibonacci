@@ -181,7 +181,7 @@ $Host.PrivateData.ProgressBackgroundColor = $bckgrnd
             }
         Write-Host ' ' $entry '' $filler  -BackgroundColor DarkGreen -ForegroundColor White;
     }
-    
+
     function write_reverse_banner_darkgreen($entry){
         $filler="";
         For ($i=2; $i -le 116 - $entry.length; $i++) {
@@ -264,6 +264,46 @@ $Menu="FIBONACCI SEQUENCE"
 
 
 
+#------------------------------------------------------------------------------
+#Script Specific Functions
+#------------------------------------------------------------------------------
+
+function get-fibonaccisequence ($n) {
+    $resultString = "";
+
+
+    $firstValue = 0;
+    $secondValue = 1;
+    $resultString = "0 ," + $secondValue
+
+
+    For ($i=0; $i -le 10; $i++) 
+    {
+    
+        show_header;
+        Write-Host "# Here we'll calculate the fibonacci sequence" -ForegroundColor green
+        Write-Host "# The next number is always found by adding up the two numbers before it." -ForegroundColor green
+        Write-Host ""
+        Write-Host " Adding :  $firstValue + $secondValue"
+        Write-Host " "
+        # The actual calculation
+        $fibResult = $firstValue + $secondValue;
+        $firstValue = $secondValue;
+        $secondValue = $fibResult;
+        $resultString = $resultString + " ," + $fibResult;  
+        Write-Host " ## Fibonacci Sequence ##" -ForegroundColor Gray
+        Write-Host $resultString -ForegroundColor Blue
+        Start-Sleep 1
+    }
+
+}
+
+
+
+
+
+
+
 
 #------------------------------------------------------------------------------
 # Script 
@@ -275,11 +315,15 @@ $animation_msg="LOADING";
 ProcessingAnimation { Start-Sleep 2 }
 
 
+Write-Host "# Here we'll calculate the fibonacci sequence" -ForegroundColor green
+Write-Host "# The next number is always found by adding up the two numbers before it." -ForegroundColor green
+Write-Host ""
+pause;
 
 
+get-fibonaccisequence (100)
 
 
-
-
+Write-Host ""
 pause;
 
