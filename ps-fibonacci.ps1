@@ -274,16 +274,13 @@ function get-fibonaccisequence ($n) {
 
     $firstValue = 0;
     $secondValue = 1;
-    $resultString = "0 ," + $secondValue
+    $resultString = " 0 ," + $secondValue
 
 
     For ($i=0; $i -le 10; $i++) 
     {
     
         show_header;
-        Write-Host "# Here we'll calculate the fibonacci sequence" -ForegroundColor green
-        Write-Host "# The next number is always found by adding up the two numbers before it." -ForegroundColor green
-        Write-Host ""
         Write-Host " Adding :  $firstValue + $secondValue"
         Write-Host " "
         # The actual calculation
@@ -299,11 +296,43 @@ function get-fibonaccisequence ($n) {
 }
 
 
+function request-number_of_calculations()
+{
+    show_header;
+    show_fibonacci_description;
+
+    $number_of_calculations = Read-Host -Prompt 'Enter number of calculations to make'
+    # first check for a value
+    if ($number_of_calculations)
+    {
+        # then check if minimum is 1
+        if ($number_of_calculations -eq 0) 
+        {
+            Write-Warning -Message "The minimum number of calculations is 1. Try again."
+            Start-Sleep 2;
+            request-number_of_calculations;
+        } 
+        else 
+        {
+            get-fibonaccisequence ($number_of_calculations)
+        }
+    }
+    else 
+    {
+        Write-Warning -Message "You didn't enter a value. Try again."
+        Start-Sleep 2;
+        request-number_of_calculations;
+    }
+
+}
 
 
-
-
-
+function show_fibonacci_description()
+{
+    Write-Host "# Here we'll calculate the fibonacci sequence" -ForegroundColor green
+    Write-Host "# The next number is always found by adding up the two numbers before it." -ForegroundColor green
+    Write-Host ""
+}
 
 #------------------------------------------------------------------------------
 # Script 
@@ -315,13 +344,8 @@ $animation_msg="LOADING";
 ProcessingAnimation { Start-Sleep 2 }
 
 
-Write-Host "# Here we'll calculate the fibonacci sequence" -ForegroundColor green
-Write-Host "# The next number is always found by adding up the two numbers before it." -ForegroundColor green
-Write-Host ""
-pause;
+request-number_of_calculations;
 
-
-get-fibonaccisequence (100)
 
 
 Write-Host ""
